@@ -25,6 +25,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Social/Social.h>
+//
+// I use a variation of these logging methods in most projects. If anyone knows the original author, please let me know so I can attribute.
+//
+#ifdef DEBUG
+#   define TWDLog(fmt, ...) NSLog((@"\n%s\n" fmt), __PRETTY_FUNCTION__, ##__VA_ARGS__)
+#else
+#   define TWDLog(...)
+#endif
+
+
+//
+//  Logs regardless of debug setting.
+//
+#define TWALog(fmt, ...) NSLog((@"\n%s\n" fmt), __PRETTY_FUNCTION__, ##__VA_ARGS__)
 
 //  The SLRequest and TWRequest share method signatures, so we can use this
 //  protocol to hush any compiler warnings
