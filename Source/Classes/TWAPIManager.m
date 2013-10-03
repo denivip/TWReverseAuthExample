@@ -63,16 +63,10 @@ typedef void(^TWAPIHandler)(NSData *data, NSError *error);
      *  from Twitter.framework.
      */
     TWDLog(@"We're running in the Simulator. Using fallback check via Twitter.framework");
-    available = [TWTweetComposeViewController canSendTweet];
 
 #else
 
-    if ([SLComposeViewController class]) {
-        available = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
-    }
-    else {
-        available = [TWTweetComposeViewController canSendTweet];
-    }
+    available = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
 
 
 #endif
@@ -95,14 +89,8 @@ typedef void(^TWAPIHandler)(NSData *data, NSError *error);
     NSParameterAssert(dict);
     NSParameterAssert(requestMethod);
 
-    if ([SLRequest class]) {
-        TWDLog(@"Using request class: SLRequest\n");
-        return (id<GenericTwitterRequest>) [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:requestMethod URL:url parameters:dict];
-    }
-    else {
-        TWDLog(@"Using request class: TWRequest\n");
-        return (id<GenericTwitterRequest>) [[TWRequest alloc] initWithURL:url parameters:dict requestMethod:requestMethod];
-    }
+    TWDLog(@"Using request class: SLRequest\n");
+    return (id<GenericTwitterRequest>) [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:requestMethod URL:url parameters:dict];
 }
 
 /**
